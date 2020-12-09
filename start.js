@@ -1,23 +1,29 @@
 const express = require('express');
 
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 const app = express();
 
-/*app.get('/', (req, res) => {
-    readFile('./index.html', 'utf8', (err, html) =>{
+app.use(express.static('public'));
+app.use('/css', express.static(__dirname + 'public/css'));
+app.use('/javascript', express.static(__dirname + 'public/javascript'));
+app.use('/images', express.static(__dirname + 'public/images'));
 
-        if(err){
-            res.status(500).send('sorry, out of order');
-        }
+app.get('/', (req, res) => {
+    res.render(__dirname + '/public/index.ejs');
+});
+app.get('/aboutme', (req, res) => {
+    res.render(__dirname + '/public/AboutMe.ejs');
+});
+app.get('/mywork', (req, res) => {
+    res.render(__dirname + '/public/MyWork.ejs');
+});
+app.get('/contactme', (req, res) => {
+    res.render(__dirname + '/public/ContactMe.ejs');
+});
 
-        res.send(html);
-    });
-});*/
 
 
-app.use(express.static('site'));
-app.use('/site', express.static(__dirname + 'site'));
 
 
 app.listen(PORT);
